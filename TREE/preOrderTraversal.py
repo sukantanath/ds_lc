@@ -4,6 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+#preorder is root -> left -> right
 class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         listofNodes = []
@@ -12,9 +13,9 @@ class Solution:
             print("reached leaf node")
         else:
             print("currently at: ",root.val)
-            listofNodes.append(root.val)
-            listofNodes += self.preorderTraversal(root.left)
-            listofNodes += self.preorderTraversal(root.right)
+            listofNodes.append(root.val) #root node processed
+            listofNodes += self.preorderTraversal(root.left) #recursion with left node to process all left sub trees
+            listofNodes += self.preorderTraversal(root.right) #recorsion with right node to process all right sub trees
         
         return(listofNodes)
       
@@ -27,12 +28,12 @@ class Solution:
             print("Do nothing")
         else:
             visitedNodeStack = []
-            visitedNodeStack.append(root)
+            visitedNodeStack.append(root) #root node processed 
             while (len(visitedNodeStack) > 0):
                 curr_node = visitedNodeStack.pop()
                 listofNodes += [curr_node.val]
                 if curr_node.right is not None:
                     visitedNodeStack.append(curr_node.right)
                 if curr_node.left is not None:
-                    visitedNodeStack.append(curr_node.left)
+                    visitedNodeStack.append(curr_node.left) #left node is insrted in stack at the end as stack is LIFO
         return(listofNodes)
